@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="chatFormContext" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatFormController">
+<AnchorPane fx:id="chatFormContext" prefHeight="645.0" prefWidth="600.0" style="-fx-background-color: D9D7F1;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatFormController">
    <children>
-      <TextArea fx:id="txtArea" layoutX="29.0" layoutY="32.0" prefHeight="255.0" prefWidth="529.0" />
-      <TextField fx:id="txtMessage" layoutX="29.0" layoutY="321.0" prefHeight="31.0" prefWidth="439.0" />
-      <Button layoutX="493.0" layoutY="321.0" mnemonicParsing="false" onAction="#sendMessageOnAction" text="Send" />
+      <TextArea fx:id="txtArea" editable="false" layoutX="35.0" layoutY="24.0" prefHeight="529.0" prefWidth="531.0" style="-fx-background-color: transparent;" wrapText="true">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </TextArea>
+      <TextField fx:id="txtMessage" layoutX="36.0" layoutY="574.0" prefHeight="40.0" prefWidth="413.0" promptText="Enter Your Message" style="-fx-background-color: #FFFFFF;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Button layoutX="491.0" layoutY="574.0" mnemonicParsing="false" onAction="#sendMessageOnAction" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #A66CFF;" text="Send" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="454.0" layoutY="574.0" mnemonicParsing="false" onAction="#sendPhotoOnAction" prefHeight="40.0" prefWidth="30.0" style="-fx-background-color: #A66CFF;" text="I" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

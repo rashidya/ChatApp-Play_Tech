@@ -23,9 +23,18 @@ public class LogInController {
 
     public void logInOnAction(ActionEvent actionEvent) throws IOException {
         ChatFormController.userName=txtUserName.getText();
+
+   /*     FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/chatForm.fxml"));
+        Parent load = loader.load();
+        Controller.ClientFormController controller=loader.<Controller.ClientFormController>getController();
+        controller.setData(txtUsername.getText());
+        Stage window = (Stage) loginContext.getScene().getWindow();
+        window.setTitle("Chat Room");
+        window.setScene(new Scene(load));*/
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/chatForm.fxml"));
         Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
+        Stage stage = (Stage) logInFormContext.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
 
