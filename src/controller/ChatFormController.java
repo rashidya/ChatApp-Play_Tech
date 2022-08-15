@@ -6,10 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.ServerSide;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -25,7 +22,7 @@ public class ChatFormController {
 
         new Thread(()->{
             try {
-                socket = new Socket("192.168.8.226", 3000); //localhost
+                socket = new Socket("192.168.8.226", 5000); //localhost
                 InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream()); //get data from socket
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader); //read data
                 String messages = bufferedReader.readLine(); // read line by line
@@ -45,5 +42,20 @@ public class ChatFormController {
         txtMessage.clear();
     }
 
+    public void updateMessages() throws IOException {
+        while (true) {
+            FileReader fileReader = new FileReader("src/db/message.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            String masseges = null;
+
+            while (line != null) {
+                masseges = (masseges == null) ? line : masseges + line;
+                line = bufferedReader.readLine();
+            }
+            txtArea.setText(masseges);
+
+        }
+    }
 
 }

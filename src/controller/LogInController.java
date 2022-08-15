@@ -17,7 +17,6 @@ public class LogInController {
     public TextField txtUserName;
 
 
-
     public void logInOnAction(ActionEvent actionEvent) throws IOException {
         ChatFormController.userName=txtUserName.getText();
         URL resource = getClass().getResource("../view/chatForm.fxml");
