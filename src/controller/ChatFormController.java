@@ -13,13 +13,14 @@ import java.net.Socket;
 public class ChatFormController {
     public AnchorPane chatFormContext;
  
-    public static String userName ="Rashmi";
+    public static String userName;
     public TextArea txtArea;
     public TextField txtMessage;
-    Socket socket = null;
+    public static Socket socket ;
+
+
 
     public void initialize(){
-
         new Thread(()->{
             try {
                 socket = new Socket("192.168.8.226", 5000); //localhost
@@ -36,11 +37,29 @@ public class ChatFormController {
     }
 
     public void sendMessageOnAction(ActionEvent actionEvent) throws IOException {
+
         PrintWriter writer = new PrintWriter(socket.getOutputStream());//send data from socket
-        writer.println(userName + " : " + txtMessage.getText());
+        writer.println(userName + " : " + txtMessage.getText() +"/");
         writer.flush();
         txtMessage.clear();
+
+        FileReader fileReader = new FileReader("src/db/message.txt");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+        String masseges = null;
+
+        while (line != null) {
+            String[] split = line.split("/");
+            for (String s : split) {
+                masseges = (masseges == null) ? s+"\n" : masseges + s+"\n";
+            }
+
+            line = bufferedReader.readLine();
+        }
+        txtArea.setText(masseges);
     }
+
+/*
 
     public void updateMessages() throws IOException {
         while (true) {
@@ -56,6 +75,6 @@ public class ChatFormController {
             txtArea.setText(masseges);
 
         }
-    }
+    }*/
 
 }

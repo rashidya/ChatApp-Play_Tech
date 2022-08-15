@@ -8,21 +8,29 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 
 public class LogInController {
     public AnchorPane logInFormContext;
     public TextField txtUserName;
+    Socket socket = null;
 
 
     public void logInOnAction(ActionEvent actionEvent) throws IOException {
         ChatFormController.userName=txtUserName.getText();
-        URL resource = getClass().getResource("../view/chatForm.fxml");
-        Parent load = FXMLLoader.load(resource);
-        Stage window = new Stage();
-        window.setScene(new Scene(load));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/chatForm.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+
+
         // set Connection
     }
 }

@@ -25,8 +25,6 @@ public class ServerSide {
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader); //read data
                     String clientMessage = bufferedReader.readLine(); // read line by line
                     if (!clientMessage.equals("EXIT")) {
-
-
                         fileWriter.write(clientMessage);
                         fileWriter.flush();
 
