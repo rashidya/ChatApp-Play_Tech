@@ -15,8 +15,8 @@ public class ClientsHandler implements Runnable{
 
         try {
             this.socket=socket;
-            this.bufferedWriter=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.bufferedReader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            this.bufferedWriter=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),"UTF8"));
+            this.bufferedReader=new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF8"));
             this.userName=bufferedReader.readLine();
             clients.add(this);
             broadcastMessage(userName + " has joined the chat");

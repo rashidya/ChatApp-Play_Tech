@@ -25,21 +25,22 @@ public class ChatFormController {
     public void initialize(){
         try {
             this.socket=new Socket("192.168.8.226",5000);
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),"UTF8"));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF8"));
 
             this.bufferedWriter.write(userName);
             this.bufferedWriter.newLine();
             this.bufferedWriter.flush();
 
 
+            //Update Message
             new Thread(()-> {
                 String chatMessages;
                 while (socket.isConnected()){
                     try{
                         chatMessages = bufferedReader.readLine();
-                        System.out.println(chatMessages);
                         txtArea.appendText(chatMessages+"\n");
+
                     }catch (IOException e){
                         close(socket,bufferedWriter,bufferedReader);
                     }
@@ -65,24 +66,6 @@ public class ChatFormController {
 
     }
 
-/*
-
-    public  void updateMessages(){
-        new Thread(()-> {
-                String chatMessages;
-                while (socket.isConnected()){
-                    try{
-                       chatMessages = bufferedReader.readLine();
-                       System.out.println(chatMessages);
-                       txtArea.appendText(chatMessages);
-                    }catch (IOException e){
-                        close(socket,bufferedWriter,bufferedReader);
-                    }
-                }
-
-        }).start();
-    }
-*/
 
     public void close(Socket socket,BufferedWriter bufferedWriter, BufferedReader bufferedReader){
         try {
