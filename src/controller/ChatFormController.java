@@ -14,67 +14,97 @@ import java.net.Socket;
 
 public class ChatFormController {
     public AnchorPane chatFormContext;
- 
-    public static String userName;
     public TextArea txtArea;
     public TextField txtMessage;
-    public static Socket socket ;
-
+    private Socket socket;
+    private BufferedReader bufferedReader;
+    private BufferedWriter bufferedWriter;
+    public static String userName;
 
 
     public void initialize(){
+        try {
+            this.socket=new Socket("192.168.8.226",5000);
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            this.bufferedWriter.write(userName);
+            this.bufferedWriter.newLine();
+            this.bufferedWriter.flush();
 
 
-        new Thread(()->{
-            try {
-                socket = new Socket("192.168.8.226", 5000); //localhost
-                while (true) {
-                    InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream()); //get data from socket
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader); //read data
-                    String messages = bufferedReader.readLine(); // read line by line
-                    while (messages != null) {
-                        txtArea.appendText(messages + "\n");
-                        messages = bufferedReader.readLine();
+            new Thread(()-> {
+                String chatMessages;
+                while (socket.isConnected()){
+                    try{
+                        chatMessages = bufferedReader.readLine();
+                        System.out.println(chatMessages);
+                        txtArea.appendText(chatMessages+"\n");
+                    }catch (IOException e){
+                        close(socket,bufferedWriter,bufferedReader);
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-        }).start();
+            }).start();
+
+        } catch (IOException e) {
+            close(socket,bufferedWriter,bufferedReader);
+        }
+    }
+
+
+    public void sendMessageOnAction(ActionEvent actionEvent) throws IOException {
+            String message = txtMessage.getText();
+            txtArea.appendText("Me : " + message+"\n");
+            bufferedWriter.write(userName + " : " + message);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+
+            txtMessage.clear();
+
 
     }
 
-    public void sendMessageOnAction(ActionEvent actionEvent) throws IOException {
-        PrintWriter writer = new PrintWriter(socket.getOutputStream());//send data from socket
-        writer.println(userName + " : " + txtMessage.getText());
-        writer.flush();
-        txtMessage.clear();
+/*
 
+    public  void updateMessages(){
+        new Thread(()-> {
+                String chatMessages;
+                while (socket.isConnected()){
+                    try{
+                       chatMessages = bufferedReader.readLine();
+                       System.out.println(chatMessages);
+                       txtArea.appendText(chatMessages);
+                    }catch (IOException e){
+                        close(socket,bufferedWriter,bufferedReader);
+                    }
+                }
 
+        }).start();
+    }
+*/
 
+    public void close(Socket socket,BufferedWriter bufferedWriter, BufferedReader bufferedReader){
+        try {
+            if (bufferedReader!=null){
+                bufferedReader.close();
+            }
+
+            if (bufferedWriter!=null){
+                bufferedWriter.close();
+            }
+            if (socket!=null){
+                socket.close();
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void sendPhotoOnAction(ActionEvent actionEvent) throws IOException {
 
     }
 
-/*
-
-    public void updateMessages() throws IOException {
-        while (true) {
-            FileReader fileReader = new FileReader("src/db/message.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine();
-            String masseges = null;
-
-            while (line != null) {
-                masseges = (masseges == null) ? line : masseges + line;
-                line = bufferedReader.readLine();
-            }
-            txtArea.setText(masseges);
-
-        }
-    }*/
 
 }
