@@ -19,7 +19,7 @@ public class ClientsHandler implements Runnable{
             this.bufferedReader=new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF8"));
             this.userName=bufferedReader.readLine();
             clients.add(this);
-            broadcastMessage(userName + " has joined the chat");
+            broadcastMessage("SERVER "+userName + " has joined the chat ");
         } catch (IOException e) {
             close(socket,bufferedWriter,bufferedReader);
         }
