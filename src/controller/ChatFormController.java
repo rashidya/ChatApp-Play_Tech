@@ -65,26 +65,18 @@ public class ChatFormController {
                         hBox.setAlignment(Pos.CENTER_LEFT);
                         hBox.setPadding(new Insets(5,5,5,10));
 
+
                         if (chatMessages.startsWith("SERVER")){
                             hBox.setAlignment(Pos.CENTER);
                             chatMessages=chatMessages.replaceFirst("SERVER"," ");
-                        }
-
-                        Text text=new Text(chatMessages);
-                        TextFlow textFlow=new TextFlow(text);
-
-                        textFlow.setStyle("-fx-font-weight: bold;"+"-fx-background-color:#8b49d2;"+ "-fx-background-radius:10px");
-
-                        if (hBox.getAlignment()==Pos.CENTER){
+                            Text text=new Text(chatMessages);
+                            TextFlow textFlow=new TextFlow(text);
                             textFlow.setStyle("-fx-font-weight: bold;"+"-fx-background-color:#c7c6c6;"+ "-fx-background-radius:10px");
+                            textFlow.setPadding(new Insets(5,10,5,10));
+                            text.setFill(Color.color(1,1,1,1));
+                            hBox.getChildren().add(textFlow);
 
-                        }
-
-                        textFlow.setPadding(new Insets(5,10,5,10));
-                        text.setFill(Color.color(1,1,1,1));
-
-
-                        if(chatMessages.startsWith("IMAGE")){
+                        } else if(chatMessages.startsWith("IMAGE")){
 
                             String[] split = chatMessages.replaceFirst("IMAGE", " ").split("=");
                             Text text1 = new Text(split[0]+" : ");
@@ -104,6 +96,13 @@ public class ChatFormController {
                             hBox.getChildren().add(imageView);
 
                         }else {
+                            Text text=new Text(chatMessages);
+                            TextFlow textFlow=new TextFlow(text);
+
+                            textFlow.setStyle("-fx-font-weight: bold;"+"-fx-background-color:#8b49d2;"+ "-fx-background-radius:10px");
+
+                            textFlow.setPadding(new Insets(5,10,5,10));
+                            text.setFill(Color.color(1,1,1,1));
                             hBox.getChildren().add(textFlow);
                         }
 
@@ -173,7 +172,7 @@ public class ChatFormController {
     }
 
     public void sendPhotoOnAction(ActionEvent actionEvent) throws IOException {
-        // Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose a Image");
         File file = fileChooser.showOpenDialog(null);
