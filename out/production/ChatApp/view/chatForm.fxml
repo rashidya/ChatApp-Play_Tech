@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="chatFormContext" prefHeight="645.0" prefWidth="600.0" style="-fx-background-color: #c7c6c6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatFormController">
+<AnchorPane fx:id="chatFormContext" prefHeight="645.0" prefWidth="600.0" style="-fx-background-color: #c4c4c4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatFormController">
    <children>
-      <TextField fx:id="txtMessage" layoutX="36.0" layoutY="574.0" prefHeight="40.0" prefWidth="413.0" promptText="Enter Your Message" style="-fx-background-color: #FFFFFF;">
+      <TextField fx:id="txtMessage" layoutX="36.0" layoutY="582.0" prefHeight="40.0" prefWidth="413.0" promptText="Enter Your Message" style="-fx-background-color: #FFFFFF;">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Button layoutX="491.0" layoutY="574.0" mnemonicParsing="false" onAction="#sendMessageOnAction" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #A66CFF;" text="Send" textFill="WHITE">
+      <Button layoutX="494.0" layoutY="582.0" mnemonicParsing="false" onAction="#sendMessageOnAction" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #A66CFF;" text="Send" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -23,7 +23,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="454.0" layoutY="574.0" mnemonicParsing="false" onAction="#sendPhotoOnAction" prefHeight="40.0" prefWidth="30.0" style="-fx-background-color: #A66CFF;" text="I" textFill="WHITE">
+      <Button layoutX="457.0" layoutY="582.0" mnemonicParsing="false" onAction="#sendPhotoOnAction" prefHeight="40.0" prefWidth="30.0" style="-fx-background-color: #A66CFF;" text="I" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

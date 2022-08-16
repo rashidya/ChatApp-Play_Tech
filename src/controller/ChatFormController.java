@@ -73,6 +73,7 @@ public class ChatFormController {
                             hBox.setAlignment(Pos.CENTER);
                             chatMessages=chatMessages.replaceFirst("SERVER"," ");
                         }
+
                         Text text=new Text(chatMessages);
                         TextFlow textFlow=new TextFlow(text);
 
@@ -86,7 +87,30 @@ public class ChatFormController {
                         textFlow.setPadding(new Insets(5,10,5,10));
                         text.setFill(Color.color(1,1,1,1));
 
-                        hBox.getChildren().add(textFlow);
+
+                        if(chatMessages.startsWith("IMAGE")){
+
+                            String[] split = chatMessages.replaceFirst("IMAGE", " ").split("=");
+                            Text text1 = new Text(split[0]+" : ");
+                            TextFlow textFlow1 = new TextFlow(text1);
+                            textFlow1.setStyle("-fx-font-weight: bold;"+"-fx-background-color:#8b49d2;");
+                            textFlow1.setPadding(new Insets(5,10,5,10));
+                            text1.setFill(Color.color(1,1,1,1));
+
+                            ImageView imageView = new ImageView();
+                            //Setting image to the image view
+                            imageView.setImage(new Image(new File(split[1]).toURI().toString()));
+                            //Setting the image view parameters
+                            imageView.setFitWidth(300);
+                            imageView.setPreserveRatio(true);
+
+                            hBox.getChildren().add(textFlow1);
+                            hBox.getChildren().add(imageView);
+
+                        }else {
+                            hBox.getChildren().add(textFlow);
+                        }
+
 
 
                         Platform.runLater(new Runnable() {
@@ -158,22 +182,34 @@ public class ChatFormController {
         fileChooser.setTitle("Choose a Image");
         File file = fileChooser.showOpenDialog(null);
 
-        bufferedWriter.write(userName + " : " + file.getPath());
+        bufferedWriter.write("IMAGE" + userName + " =" + file.getPath());
         bufferedWriter.newLine();
         bufferedWriter.flush();
 
-        /*Image image = new Image("src/view/img/chat.png");
-        //Creating the image view
+
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+        Text text = new Text("Me : ");
+        TextFlow textFlow = new TextFlow(text);
+        textFlow.setStyle("-fx-font-weight: bold;"+"-fx-background-color:#cf8bf6;");
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.color(1, 1, 1, 1));
+
+
         ImageView imageView = new ImageView();
         //Setting image to the image view
-        imageView.setImage(image);
+        imageView.setImage(new Image(new File(file.getPath()).toURI().toString()));
         //Setting the image view parameters
-        imageView.setX(5);
-        imageView.setY(0);
-        imageView.setFitWidth(55);
+        imageView.setFitWidth(300);
         imageView.setPreserveRatio(true);
-        imageContext.getChildren().addAll(imageView);*/
-        //txtClientMessage.setText(filePath.getPath());
+
+        hBox.getChildren().add(textFlow);
+        hBox.getChildren().add(imageView);
+
+        vboxMessage.getChildren().add(hBox);
     }
 
 
